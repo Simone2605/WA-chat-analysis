@@ -26,8 +26,8 @@ WA_chat <- readLines('/PATH/TO/YOUR/FILE.txt') %>%
   # separate date and time
   separate(chat, into=c('datetime', 'text'), sep='] ') %>%
   separate(datetime, into=c('date', 'time'), sep=', ') %>%
-  mutate(date = as.Date(date, format='%d/%m/%y'),
-         month = as.numeric(month(date))) %>%
+  mutate(date = as.Date(date, format='%d.%m.%y'),
+         month_year = format(date, "%b '%y")) %>%
   # separate name and message
   separate(text, into=c('name', 'message'), sep=': ', extra='merge') %>%
   # create numeric column for count of characters per message
@@ -68,20 +68,6 @@ name_colors=c('NAME_1'='#cccccc',
               'NAME_5'='#ffff00',
               'NAME_6'='#ff00ff',
               ...)
-
-# set month labels
-month_labels=c('1'='Jan',
-               '2'='Feb',
-               '3'='Mär',
-               '4'='Apr',
-               '5'='Mai',
-               '6'='Jun',
-               '7'='Jul',
-               '8'='Aug',
-               '9'='Sep',
-               '10'='Okt',
-               '11'='Nov',
-               '12'='Dez')
 
 # line plot with number of messages sent per day
 WA_chat %>%
@@ -127,15 +113,14 @@ WA_chat %>%
   labs(x='',
        y='messages',
        fill='') +
-  facet_wrap(~month, ncol=4,
-             labeller=labeller(month=month_labels)) +
+  facet_wrap(~month_year, ncol=4) +
   theme_cowplot() +
   theme(axis.text.x=element_text(angle=35,
                                  hjust=1))
 
 # Wilcoxon-Test to test for significant difference between number of messages sent per month
 stat.test_1 = WA_chat %>%
-  group_by(month, name) %>%
+  group_by(month_year, name) %>%
   summarise(count = n()) %>%
   ungroup() %>%
   wilcox_test(count ~ name,
@@ -149,7 +134,7 @@ stat.test_1 = WA_chat %>%
 
 # box plot with number of messages sent per month (with result of Wilcoxon-Test)
 WA_chat %>%
-  group_by(month, name) %>%
+  group_by(month_year, name) %>%
   summarise(count = n()) %>%
   ungroup() %>%
   ggplot(aes(x=name, y=count)) +
@@ -166,7 +151,7 @@ WA_chat %>%
 # bar plot with number of characters (summarised across all text messages) sent per month
 WA_chat %>%
   filter(type=='text') %>%
-  group_by(month, name) %>%
+  group_by(month_year, name) %>%
   summarise(characters_sum = sum(characters)) %>%
   ungroup() %>%
   ggplot(aes(x=name, y=characters_sum)) +
@@ -179,8 +164,7 @@ WA_chat %>%
   labs(x='',
        y='characters',
        fill='') +
-  facet_wrap(~month, ncol=4,
-             labeller=labeller(month=month_labels)) +
+  facet_wrap(~month_year, ncol=4) +
   theme_cowplot() +
   theme(axis.text.x=element_text(angle=35, hjust=1))
 
