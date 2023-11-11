@@ -20,7 +20,9 @@ This comprehensive R script is designed to analyze WhatsApp chat histories expor
 - **Libraries**: This script utilizes **'stringr'**, **'tidyverse'**, **'lubridate'**, **'cowplot'**, **'rstatix'**, and **'ggpubr'** for data processing and visualization. Ensure these are installed and up-to-date.
 
 *Example plots*:
-![Beispielbilder](https://github.com/Simone2605/WA-chat-analysis/assets/148258280/392c9eee-fb81-4d03-8bc2-e8fb72c4e6ff)
+![Beispielbilder](https://github.com/Simone2605/WA-chat-analysis/assets/148258280/b04505e5-f309-4641-a020-47176258e4c0)
+
+
 
 
 
