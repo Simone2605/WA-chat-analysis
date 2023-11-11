@@ -8,3 +8,17 @@
 # chats in any language other than german, you have
 # to adapt a few code lines, for it was designed for
 # german chat histories only.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
