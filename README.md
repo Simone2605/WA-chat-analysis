@@ -1,5 +1,5 @@
 ### WhatsApp Chat Analysis with R
-This comprehensive R script is designed to analyze WhatsApp chat histories. It provides insights into communication patterns by visualizing the number and types of messages sent, including text messages, pictures, videos, and more, and identifies the most active participants in the chat.
+This comprehensive R script is designed to analyze WhatsApp chat histories exported from iOS devices. It provides insights into communication patterns by visualizing the number and types of messages sent, including text messages, pictures, videos, and more. It also identifies the most active participants in the chat.
 
 *Key Features*:
 - **Message Type Analysis**: Visualizes the distribution of different types of messages (text, picture, audio, etc.) sent by each participant.
@@ -16,7 +16,11 @@ This comprehensive R script is designed to analyze WhatsApp chat histories. It p
 
 *Important Notes*:
 - **Language Specifity**: This script is tailored for WhatsApp chats in **German**. Adjustments might be necessary for chats in other languages, particularly regarding text markers, date/time formats, and regular expressions.
+- **Device and System Variability**: The format of WhatsApp chat exports can vary across different iOS devices, versions, and other systems like Android. Review the exported chat format and adjust the script accordingly to ensure compatibility.
 - **Libraries**: This script utilizes **'stringr'**, **'tidyverse'**, **'lubridate'**, **'cowplot'**, **'rstatix'**, and **'ggpubr'** for data processing and visualization. Ensure these are installed and up-to-date.
+
+*Example plots*:
+![Beispielbilder](https://github.com/Simone2605/WA-chat-analysis/assets/148258280/392c9eee-fb81-4d03-8bc2-e8fb72c4e6ff)
 
 
 
