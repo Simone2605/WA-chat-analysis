@@ -17,8 +17,10 @@ WA_chat <- readLines('/PATH/TO/YOUR/FILE.txt') %>%
   tibble(chat=.) %>%
   # remove first (empty) line (resulting from line break)
   slice(-1) %>%
-  # remove possible first message with "‎Nachrichten und Anrufe sind Ende-zu-Ende-verschlüsselt. Niemand außerhalb dieses Chats kann sie lesen oder anhören, nicht einmal WhatsApp." 
+  # remove possible messages that were automically sent by the system 
   filter(!str_detect(chat, 'Ende-zu-Ende-verschlüsselt')) %>%
+  filter(!str_detect(chat, 'hat die Gruppe .* erstellt')) %>%
+  filter(!str_detect(chat, 'hat .* hinzugefügt')) %>%
   # remove initial opening bracket
   mutate(chat = str_remove_all(chat, '^\\[')) %>%
   # separate date and time
@@ -27,9 +29,7 @@ WA_chat <- readLines('/PATH/TO/YOUR/FILE.txt') %>%
   mutate(date = as.Date(date, format='%d/%m/%y'),
          month = as.numeric(month(date))) %>%
   # separate name and message
-  separate(text, into=c('name', 'message'), sep=':', extra='merge') %>%
-  # remove initial space
-  mutate(message = str_remove_all(message, '^ ')) %>%
+  separate(text, into=c('name', 'message'), sep=': ', extra='merge') %>%
   # create numeric column for count of characters per message
   mutate(characters = str_length(message)) %>%
   # create logical columns for every message type
